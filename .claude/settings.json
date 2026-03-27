@@ -29,7 +29,8 @@
     "tidy-first@passionfactory": true,
     "tsdown@pleaseai": true,
     "typescript-lsp@code-intelligence": true,
-    "worktree@passionfactory": true
+    "worktree@passionfactory": true,
+    "vitest@pleaseai": true
   },
   "extraKnownMarketplaces": {
     "passionfactory": {
