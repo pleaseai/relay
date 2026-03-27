@@ -1,0 +1,37 @@
+.husky/commit-msg
+  f1c512c8db2fd9ff 1
+package.json
+  f1c512c8db2fd9ff 26-28
+release-please-config.json
+  f1c512c8db2fd9ff 1-20
+.husky/pre-commit
+  f1c512c8db2fd9ff 1-12
+.release-please-manifest.json
+  f1c512c8db2fd9ff 1-4
+.nvmrc
+  f1c512c8db2fd9ff 1
+.github/workflows/ci.yml
+  f1c512c8db2fd9ff 1-38
+.github/workflows/release-please.yml
+  f1c512c8db2fd9ff 1-102
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.20",
+  "base_commit_sha": "1583c7ec33ba5d77c8ad54a23eceef23368b9fed",
+  "prompts": {
+    "f1c512c8db2fd9ff": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1914c07b-3294-4e0b-8617-d86bf4d00b26",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Minsu Lee <amond@amond.net>",
+      "messages": [],
+      "total_additions": 181,
+      "total_deletions": 0,
+      "accepted_lines": 181,
+      "overriden_lines": 0
+    }
+  }
+}
