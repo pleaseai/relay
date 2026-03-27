@@ -1,0 +1,23 @@
+.claude/settings.json
+  f1c512c8db2fd9ff 1-137
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.20",
+  "base_commit_sha": "0107b57793110d7a09710975ab5c6ffa04876764",
+  "prompts": {
+    "f1c512c8db2fd9ff": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1914c07b-3294-4e0b-8617-d86bf4d00b26",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Minsu Lee <amond@amond.net>",
+      "messages": [],
+      "total_additions": 137,
+      "total_deletions": 0,
+      "accepted_lines": 137,
+      "overriden_lines": 0
+    }
+  }
+}
