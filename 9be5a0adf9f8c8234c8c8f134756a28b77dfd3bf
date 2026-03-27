@@ -1,0 +1,49 @@
+.please/docs/decisions/index.md
+  3bdcfed84660dfb5 1-6
+.please/INDEX.md
+  3bdcfed84660dfb5 1-35
+.gitignore
+  3bdcfed84660dfb5 36-38
+.please/docs/tracks/active/migrate-to-vitest-20260327/plan.md
+  3bdcfed84660dfb5 1-3
+.please/docs/knowledge/product.md
+  3bdcfed84660dfb5 1-45
+.please/docs/tracks/tech-debt-tracker.md
+  3bdcfed84660dfb5 1-13
+.please/docs/tracks/active/migrate-to-vitest-20260327/metadata.json
+  3bdcfed84660dfb5 1-9
+.please/docs/tracks/index.md
+  3bdcfed84660dfb5 1-18
+.please/docs/knowledge/workflow.md
+  3bdcfed84660dfb5 1-55
+.please/config.yml
+  3bdcfed84660dfb5 1-11
+.please/docs/knowledge/product-guidelines.md
+  3bdcfed84660dfb5 1-33
+.please/docs/knowledge/tech-stack.md
+  3bdcfed84660dfb5 1-33
+.please/docs/product-specs/index.md
+  3bdcfed84660dfb5 1-6
+.please/docs/tracks/active/migrate-to-vitest-20260327/spec.md
+  3bdcfed84660dfb5 1-27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.20",
+  "base_commit_sha": "9be5a0adf9f8c8234c8c8f134756a28b77dfd3bf",
+  "prompts": {
+    "3bdcfed84660dfb5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "320ae9fc-78c9-4348-9168-2a2ecffe5fe9",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Minsu Lee <amond@amond.net>",
+      "messages": [],
+      "total_additions": 297,
+      "total_deletions": 0,
+      "accepted_lines": 297,
+      "overriden_lines": 0
+    }
+  }
+}
