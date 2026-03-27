@@ -1,0 +1,27 @@
+.gemini/settings.json
+  3bdcfed84660dfb5 1-5
+ARCHITECTURE.md
+  3bdcfed84660dfb5 1-153
+.please/config.yml
+  3bdcfed84660dfb5 12-19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.20",
+  "base_commit_sha": "65fff77fd308ba7c29d6d72cd83861347a7967c8",
+  "prompts": {
+    "3bdcfed84660dfb5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "320ae9fc-78c9-4348-9168-2a2ecffe5fe9",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Minsu Lee <amond@amond.net>",
+      "messages": [],
+      "total_additions": 166,
+      "total_deletions": 0,
+      "accepted_lines": 166,
+      "overriden_lines": 0
+    }
+  }
+}
