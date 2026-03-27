@@ -1,0 +1,137 @@
+{
+  "env": {
+    "ENABLE_TOOL_SEARCH": "true",
+    "CLAUDE_CODE_FILE_READ_MAX_OUTPUT_TOKENS": "40000",
+    "CLAUDE_CODE_DISABLE_AUTO_MEMORY": "0",
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
+  "enabledPlugins": {
+    "antfu@pleaseai": true,
+    "ast-grep@pleaseai": true,
+    "backend@passionfactory": true,
+    "bun@passionfactory": true,
+    "claude-code-setup@passionfactory": true,
+    "claude-md-management@pleaseai": true,
+    "context@passionfactory": true,
+    "dev-tools@passionfactory": true,
+    "eslint-lsp@code-intelligence": true,
+    "fetch@pleaseai": true,
+    "gardening@passionfactory": true,
+    "gatekeeper@pleaseai": true,
+    "github@passionfactory": true,
+    "markitdown@pleaseai": true,
+    "please@passionfactory": true,
+    "ralph-loop@claude-plugins-official": true,
+    "research@passionfactory": true,
+    "review@passionfactory": true,
+    "standards@passionfactory": true,
+    "testing@passionfactory": true,
+    "tidy-first@passionfactory": true,
+    "tsdown@pleaseai": true,
+    "typescript-lsp@code-intelligence": true,
+    "worktree@passionfactory": true
+  },
+  "extraKnownMarketplaces": {
+    "passionfactory": {
+      "source": {
+        "source": "github",
+        "repo": "chatbot-pf/engineering-standards"
+      },
+      "autoUpdate": true
+    },
+    "pleaseai": {
+      "source": {
+        "source": "github",
+        "repo": "pleaseai/claude-code-plugins"
+      },
+      "autoUpdate": true
+    },
+    "code-intelligence": {
+      "source": {
+        "source": "github",
+        "repo": "chatbot-pf/code-intelligence"
+      },
+      "autoUpdate": true
+    }
+  },
+  "permissions": {
+    "allow": [
+      "Bash(bun:*)",
+      "Bash(bunx:*)",
+      "Bash(turbo:*)",
+      "Bash(tsc:*)",
+      "Bash(eslint:*)",
+      "Bash(sg:*)",
+      "Bash(ls:*)",
+      "Bash(echo:*)",
+      "Bash(wc:*)",
+      "Bash(sort:*)",
+      "Bash(diff:*)",
+      "Bash(which:*)",
+      "Bash(test:*)",
+      "Bash(true:*)",
+      "Bash(false:*)",
+      "Bash(pwd:*)",
+      "Bash(dirname:*)",
+      "Bash(basename:*)",
+      "Bash(date:*)",
+      "Bash(printenv:*)",
+      "Bash(env:*)",
+      "Bash(cat:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(grep:*)",
+      "Bash(find:*)",
+      "Bash(touch:*)",
+      "Bash(mkdir:*)",
+      "Bash(xargs:*)",
+      "Bash(git status:*)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git branch:*)",
+      "Bash(git checkout:*)",
+      "Bash(git switch:*)",
+      "Bash(git fetch:*)",
+      "Bash(git pull:*)",
+      "Bash(git stash:*)",
+      "Bash(git show:*)",
+      "Bash(git blame:*)",
+      "Bash(git tag:*)",
+      "Bash(git worktree:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(git remote:*)",
+      "Bash(git merge:*)",
+      "Bash(git cherry-pick:*)",
+      "Bash(git config --get:*)",
+      "Bash(git config --list:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr list:*)",
+      "Bash(gh pr checks:*)",
+      "Bash(gh pr diff:*)",
+      "Bash(gh issue view:*)",
+      "Bash(gh issue list:*)",
+      "Bash(gh repo view:*)",
+      "Bash(gh run view:*)",
+      "Bash(gh run list:*)",
+      "Bash(gh auth status:*)",
+      "Bash(gh search:*)",
+      "Bash(wrangler:*)"
+    ]
+  },
+  "language": "en",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun install --ignore-scripts"
+          }
+        ]
+      }
+    ]
+  }
+}
