@@ -33,3 +33,6 @@ Thumbs.db
 # Wrangler
 .wrangler/
 .dev.vars
+
+# please plugin runtime state
+.please/state/
