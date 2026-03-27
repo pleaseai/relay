@@ -1,0 +1,20 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "bump-minor-pre-major": true,
+  "bump-patch-for-minor-pre-major": true,
+  "initial-version": "0.1.0",
+  "packages": {
+    "packages/relay-client": {
+      "release-type": "node",
+      "package-name": "@pleaseai/relay-client",
+      "changelog-path": "CHANGELOG.md",
+      "initial-version": "0.1.0"
+    },
+    "packages/relay-server": {
+      "release-type": "node",
+      "package-name": "@pleaseai/relay-server",
+      "changelog-path": "CHANGELOG.md",
+      "initial-version": "0.1.0"
+    }
+  }
+}

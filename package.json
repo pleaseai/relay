@@ -14,11 +14,17 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^7.7.0",
+    "@commitlint/cli": "^20.5.0",
+    "@commitlint/config-conventional": "^20.5.0",
     "eslint": "^10.0.3",
     "husky": "^9.1.7",
     "jiti": "^2.6.1",
+    "lint-staged": "^16.4.0",
     "turbo": "^2.8.0",
     "typescript": "^5.7.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,mjs}": "eslint --fix"
   },
   "workspaces": [
     "apps/*",
