@@ -1,0 +1,69 @@
+packages/relay-client/README.md
+  f1c512c8db2fd9ff 1-31
+apps/relay-worker/README.md
+  f1c512c8db2fd9ff 1-66
+apps/relay-worker/package.json
+  f1c512c8db2fd9ff 1-21
+.gitignore
+  f1c512c8db2fd9ff 1-35
+apps/relay-worker/wrangler.json
+  f1c512c8db2fd9ff 1-20
+packages/relay-server/tsconfig.json
+  f1c512c8db2fd9ff 1-13
+apps/relay-worker/src/index.ts
+  f1c512c8db2fd9ff 1-39
+packages/relay-client/src/relay-transport.ts
+  f1c512c8db2fd9ff 1-101
+packages/relay-server/src/relay-party.ts
+  f1c512c8db2fd9ff 1-110
+turbo.json
+  f1c512c8db2fd9ff 1-21
+commitlint.config.js
+  f1c512c8db2fd9ff 1
+packages/relay-server/package.json
+  f1c512c8db2fd9ff 1-35
+apps/relay-worker/tsconfig.json
+  f1c512c8db2fd9ff 1-13
+packages/relay-server/README.md
+  f1c512c8db2fd9ff 1-19
+package.json
+  f1c512c8db2fd9ff 1-27
+packages/relay-client/src/types.ts
+  f1c512c8db2fd9ff 1-13
+tsconfig.json
+  f1c512c8db2fd9ff 1-17
+packages/relay-client/src/relay-transport.test.ts
+  f1c512c8db2fd9ff 1-109
+eslint.config.ts
+  f1c512c8db2fd9ff 1-15
+packages/relay-client/tsconfig.json
+  f1c512c8db2fd9ff 1-9
+packages/relay-client/src/index.ts
+  f1c512c8db2fd9ff 1-2
+README.md
+  f1c512c8db2fd9ff 1-46
+packages/relay-client/package.json
+  f1c512c8db2fd9ff 1-38
+packages/relay-server/src/index.ts
+  f1c512c8db2fd9ff 1-2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.20",
+  "base_commit_sha": "ae38639d32fd20ead9f3b9609ed39626ec3a1fd8",
+  "prompts": {
+    "f1c512c8db2fd9ff": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1914c07b-3294-4e0b-8617-d86bf4d00b26",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Minsu Lee <amond@amond.net>",
+      "messages": [],
+      "total_additions": 803,
+      "total_deletions": 0,
+      "accepted_lines": 803,
+      "overriden_lines": 0
+    }
+  }
+}
