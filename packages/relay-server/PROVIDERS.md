@@ -34,11 +34,12 @@ import { computeHmacSha256, constantTimeCompare, WebhookProvider } from './types
 export const linearProvider: WebhookProvider = {
   name: 'linear',
 
-  isHandshake: (_request) => false,
+  isHandshake: _request => false,
 
   verify: async (body, request, secret) => {
     const signature = request.headers.get('linear-signature')
-    if (!signature) return false
+    if (!signature)
+      return false
     const hash = await computeHmacSha256(body, secret)
     return constantTimeCompare(hash, signature)
   },
@@ -50,7 +51,8 @@ export const linearProvider: WebhookProvider = {
         event: parsed.type ?? 'unknown',
         action: parsed.action ?? null,
       }
-    } catch {
+    }
+    catch {
       return { event: 'unknown', action: null }
     }
   },
@@ -65,10 +67,10 @@ import { linearProvider } from './linear'
 const providers: Record<string, WebhookProvider> = {
   asana: asanaProvider,
   github: githubProvider,
-  linear: linearProvider,   // add this
+  linear: linearProvider, // add this
 }
 
-export { linearProvider } from './linear'  // add this
+export { linearProvider } from './linear' // add this
 ```
 
 **3. Add tests in `src/providers/linear.test.ts`**
