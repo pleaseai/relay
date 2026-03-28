@@ -11,8 +11,8 @@ Relay is a real-time WebSocket relay that bridges webhook-based services (GitHub
 
 ## Core Features
 
-1. **Webhook Ingestion** — Accept POST requests from multiple webhook providers at `/webhook/:room` endpoints.
-2. **Signature Verification** — Validate webhook authenticity per provider (HMAC, etc.) before processing.
+1. **Webhook Ingestion** — Accept POST requests from multiple webhook providers at `/webhook/:provider/:room` endpoints.
+2. **Signature Verification** — Validate webhook authenticity per provider via the WebhookProvider interface. Supports GitHub (HMAC-SHA256 with `X-Hub-Signature-256`) and Asana (handshake + HMAC-SHA256 with `X-Hook-Signature`).
 3. **Event Broadcasting** — Relay verified events as lightweight envelopes to all WebSocket clients connected to the matching room.
 4. **Auto-reconnecting Client** — Provide a client library with automatic reconnection and event deduplication.
 5. **Durable Object Hosting** — Run on Cloudflare Workers using PartyServer Durable Objects for per-room state isolation.
