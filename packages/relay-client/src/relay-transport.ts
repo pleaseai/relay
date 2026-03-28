@@ -11,10 +11,10 @@ export class RelayTransport {
   private readonly url: string
   private readonly room: string
   private readonly token: string | null
-  private readonly triggerRefresh: () => void
+  private readonly triggerRefresh: (envelope: RelayEnvelope) => void
   private readonly seenEventIds = new Set<string>()
 
-  constructor(config: RelayConfig, triggerRefresh: () => void) {
+  constructor(config: RelayConfig, triggerRefresh: (envelope: RelayEnvelope) => void) {
     if (!config.url)
       throw new Error('relay.url is required when polling.mode is relay')
     if (!config.room)
@@ -96,6 +96,6 @@ export class RelayTransport {
     }
 
     log.info(`received relay event for room=${this.room} event_id=${envelope.event_id ?? 'none'}`)
-    this.triggerRefresh()
+    this.triggerRefresh(envelope)
   }
 }

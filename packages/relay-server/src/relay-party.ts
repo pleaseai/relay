@@ -7,6 +7,7 @@ export interface Env {
   RelayParty: DurableObjectNamespace<RelayParty>
   WEBHOOK_SECRET?: string
   AUTH_TOKEN?: string
+  FORWARD_PAYLOAD?: string
 }
 
 export class RelayParty extends Server<Env> {
@@ -72,6 +73,8 @@ export class RelayParty extends Server<Env> {
     if (event === 'heartbeat')
       return Response.json({ accepted: true, provider: providerName, event, action, connections: this.getConnectionCount() })
 
+    const forwardPayload = this.env.FORWARD_PAYLOAD === 'true'
+
     const envelope = JSON.stringify({
       type: 'webhook_event',
       event_id: crypto.randomUUID(),
@@ -79,6 +82,7 @@ export class RelayParty extends Server<Env> {
       event,
       action,
       received_at: new Date().toISOString(),
+      ...(forwardPayload && { payload: body }),
     })
 
     this.broadcast(envelope)

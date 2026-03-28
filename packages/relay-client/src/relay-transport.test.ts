@@ -30,7 +30,7 @@ describe('RelayTransport', () => {
       room: 'test-room',
       secret: null,
     }
-    triggerRefresh = mock(() => {})
+    triggerRefresh = mock((_envelope: any) => {})
     messageHandlers = []
     mockSocket.addEventListener.mockClear()
     mockSocket.close.mockClear()
