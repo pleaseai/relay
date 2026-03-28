@@ -43,21 +43,23 @@ export class RelayParty extends Server<Env> {
     // Handshake
     if (provider.isHandshake(request)) {
       const hookSecret = request.headers.get('x-hook-secret')
-      if (hookSecret) {
-        await this.ctx.storage.put('webhook_secret', hookSecret)
-        return new Response('', { status: 200, headers: { 'x-hook-secret': hookSecret } })
-      }
+      if (!hookSecret)
+        return Response.json({ error: { code: 'missing_hook_secret', message: 'Handshake request missing X-Hook-Secret header' } }, { status: 400 })
+
+      await this.ctx.storage.put('webhook_secret', hookSecret)
+      return new Response('', { status: 200, headers: { 'x-hook-secret': hookSecret } })
     }
 
     const body = await request.text()
 
     // Verification
     const secret = await this.ctx.storage.get<string>('webhook_secret') ?? this.env.WEBHOOK_SECRET
-    if (secret) {
-      const valid = await provider.verify(body, request, secret)
-      if (!valid)
-        return Response.json({ error: { code: 'invalid_signature', message: 'Signature verification failed' } }, { status: 401 })
-    }
+    if (!secret)
+      return Response.json({ error: { code: 'no_secret', message: 'Webhook secret not configured' } }, { status: 500 })
+
+    const valid = await provider.verify(body, request, secret)
+    if (!valid)
+      return Response.json({ error: { code: 'invalid_signature', message: 'Signature verification failed' } }, { status: 401 })
 
     // Metadata
     const { event, action } = provider.extractMetadata(body, request)

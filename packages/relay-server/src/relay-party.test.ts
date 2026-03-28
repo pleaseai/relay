@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { resolveProvider } from './providers'
+import { computeHmacSha256 } from './providers/types'
 
 // We test the logic of onRequest by extracting the pure handler logic.
 // Since RelayParty extends PartyServer (a Durable Object), we cannot instantiate
@@ -56,20 +57,22 @@ async function onRequest(
 
   if (provider.isHandshake(request)) {
     const hookSecret = request.headers.get('x-hook-secret')
-    if (hookSecret) {
-      await storage.put('webhook_secret', hookSecret)
-      return new Response('', { status: 200, headers: { 'x-hook-secret': hookSecret } })
-    }
+    if (!hookSecret)
+      return Response.json({ error: { code: 'missing_hook_secret', message: 'Handshake request missing X-Hook-Secret header' } }, { status: 400 })
+
+    await storage.put('webhook_secret', hookSecret)
+    return new Response('', { status: 200, headers: { 'x-hook-secret': hookSecret } })
   }
 
   const body = await request.text()
 
   const secret = await storage.get('webhook_secret') ?? env.WEBHOOK_SECRET
-  if (secret) {
-    const valid = await provider.verify(body, request, secret)
-    if (!valid)
-      return Response.json({ error: { code: 'invalid_signature', message: 'Signature verification failed' } }, { status: 401 })
-  }
+  if (!secret)
+    return Response.json({ error: { code: 'no_secret', message: 'Webhook secret not configured' } }, { status: 500 })
+
+  const valid = await provider.verify(body, request, secret)
+  if (!valid)
+    return Response.json({ error: { code: 'invalid_signature', message: 'Signature verification failed' } }, { status: 401 })
 
   const { event, action } = provider.extractMetadata(body, request)
 
@@ -155,10 +158,14 @@ describe('RelayParty onRequest', () => {
   })
 
   it('broadcast envelope includes provider field', async () => {
+    const secret = 'test-secret'
+    const body = '{"action":"opened"}'
+    env.WEBHOOK_SECRET = secret
+    const hash = await computeHmacSha256(body, secret)
     const req = makeRequest({
       provider: 'github',
-      headers: { 'x-github-event': 'push' },
-      body: '{"action":"opened"}',
+      headers: { 'x-github-event': 'push', 'x-hub-signature-256': `sha256=${hash}` },
+      body,
     })
     const res = await onRequest(req, storage, env, broadcast, getConnectionCount)
     expect(res.status).toBe(200)
@@ -171,15 +178,17 @@ describe('RelayParty onRequest', () => {
     expect(envelope.action).toBe('opened')
   })
 
-  it('skips verification when no secret configured', async () => {
+  it('returns 500 when no secret configured', async () => {
     const req = makeRequest({
       provider: 'github',
       headers: { 'x-github-event': 'ping' },
       body: '{}',
     })
     const res = await onRequest(req, storage, env, broadcast, getConnectionCount)
-    expect(res.status).toBe(200)
-    expect(broadcastMock).toHaveBeenCalledOnce()
+    expect(res.status).toBe(500)
+    const body = await res.json() as { error: { code: string } }
+    expect(body.error.code).toBe('no_secret')
+    expect(broadcastMock).not.toHaveBeenCalled()
   })
 
   it('uses stored secret over env secret', async () => {
@@ -197,10 +206,14 @@ describe('RelayParty onRequest', () => {
   })
 
   it('response includes provider field', async () => {
+    const secret = 'test-secret'
+    const bodyStr = '{"action":"opened"}'
+    env.WEBHOOK_SECRET = secret
+    const hash = await computeHmacSha256(bodyStr, secret)
     const req = makeRequest({
       provider: 'github',
-      headers: { 'x-github-event': 'push' },
-      body: '{"action":"opened"}',
+      headers: { 'x-github-event': 'push', 'x-hub-signature-256': `sha256=${hash}` },
+      body: bodyStr,
     })
     const res = await onRequest(req, storage, env, broadcast, getConnectionCount)
     const body = await res.json() as { provider: string, accepted: boolean }
