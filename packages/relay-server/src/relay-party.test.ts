@@ -82,6 +82,9 @@ async function onRequest(
 
   const { event, action } = provider.extractMetadata(body, request)
 
+  if (event === 'heartbeat')
+    return Response.json({ accepted: true, provider: providerName, event, action, connections: getConnectionCount() })
+
   const envelope = JSON.stringify({
     type: 'webhook_event',
     event_id: crypto.randomUUID(),

@@ -3,6 +3,8 @@ import { getServerByName, routePartykitRequest } from 'partyserver'
 
 export { RelayParty } from '@pleaseai/relay-server'
 
+const ROOM_NAME_RE = /^[\w-]{1,128}$/
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url)
@@ -25,6 +27,14 @@ export default {
       }
 
       const [provider, room] = segments
+
+      if (!ROOM_NAME_RE.test(room)) {
+        return Response.json(
+          { error: { code: 'invalid_room', message: 'Room name must be alphanumeric, hyphens, or underscores (max 128 chars)' } },
+          { status: 400 },
+        )
+      }
+
       const headers = new Headers(request.headers)
       headers.set('x-relay-provider', provider)
       const newRequest = new Request(request, { headers })

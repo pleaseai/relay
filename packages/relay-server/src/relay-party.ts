@@ -68,6 +68,10 @@ export class RelayParty extends Server<Env> {
     // Metadata
     const { event, action } = provider.extractMetadata(body, request)
 
+    // Heartbeat events (e.g., Asana empty events array) are acknowledged without broadcast
+    if (event === 'heartbeat')
+      return Response.json({ accepted: true, provider: providerName, event, action, connections: this.getConnectionCount() })
+
     const envelope = JSON.stringify({
       type: 'webhook_event',
       event_id: crypto.randomUUID(),
