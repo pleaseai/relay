@@ -10,7 +10,7 @@ Relay is a real-time WebSocket relay that bridges webhook-based services (GitHub
 The system is split into three packages following a clear separation of concerns: a reusable server library, a reusable client library, and a deployment-specific worker app.
 
 ```
-Webhook Source ──POST /webhook/:room──▶ relay-worker (Cloudflare Worker)
+Webhook Source ──POST /webhook/:provider/:room──▶ relay-worker (Cloudflare Worker)
                                                 │
                                                 ▼
                                         RelayParty (Durable Object)
@@ -31,7 +31,7 @@ If you want to understand the codebase, start here:
 
 | # | File | What to look for |
 |---|------|-----------------|
-| 1 | `apps/relay-worker/src/index.ts` | The Cloudflare Worker fetch handler — routing logic for `/health`, `/webhook/:room`, and PartyKit WebSocket upgrade |
+| 1 | `apps/relay-worker/src/index.ts` | The Cloudflare Worker fetch handler — routing logic for `/health`, `/webhook/:provider/:room`, and PartyKit WebSocket upgrade |
 | 2 | `packages/relay-server/src/relay-party.ts` | `RelayParty` class — the Durable Object that handles `onConnect` (auth), `onRequest` (webhook ingestion + signature verification), and `broadcast` |
 | 3 | `packages/relay-client/src/relay-transport.ts` | `RelayTransport` class — auto-reconnecting WebSocket client with event deduplication |
 | 4 | `packages/relay-client/src/types.ts` | Shared type definitions: `RelayConfig` and `RelayEnvelope` |
@@ -71,7 +71,7 @@ The deployment entry point. Not published to npm. Depends on `@pleaseai/relay-se
 
 **Routing logic** (`src/index.ts`):
 - `GET /health` → health check response
-- `POST /webhook/:room` → extracts room from URL, forwards to the room's Durable Object via `getServerByName`
+- `POST /webhook/:provider/:room` → extracts provider and room from URL, sets `X-Relay-Provider` header, forwards to the room's Durable Object via `getServerByName`
 - All other requests → `routePartykitRequest` for WebSocket upgrade handling
 - Unmatched → 404
 
@@ -109,7 +109,7 @@ These are the rules that must not be violated. If a change would break one of th
 
 3. **Edge-runtime only.** All server-side code must run on Cloudflare Workers. No Node.js-specific APIs (`fs`, `net`, `child_process`, `Buffer` from `node:buffer`, etc.). Use Web Crypto API, not `crypto` from Node.
 
-4. **Per-room isolation via Durable Objects.** Each room is a separate Durable Object instance. Rooms never share state. The room name is derived from the URL path (`/webhook/:room`).
+4. **Per-room isolation via Durable Objects.** Each room is a separate Durable Object instance. Rooms never share state. The room name is derived from the URL path (`/webhook/:provider/:room`).
 
 5. **Client-side deduplication is mandatory.** The relay client must deduplicate events by `event_id` to handle reconnection scenarios where events may be replayed. The dedup cache has a bounded size (currently 100).
 
@@ -129,7 +129,7 @@ These are the rules that must not be violated. If a change would break one of th
 
 ### Testing
 
-- Test runner: Vitest (migrating from `bun:test`)
+- Test runner: Vitest
 - Tests live alongside source files (`*.test.ts` co-located pattern)
 - `relay-client` has unit tests with mocked PartySocket
 - `relay-server` tests are planned (currently type-check only)

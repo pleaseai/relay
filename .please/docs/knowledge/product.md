@@ -20,7 +20,7 @@ Relay is a real-time WebSocket relay that bridges webhook-based services (GitHub
 ## Architecture Overview
 
 ```
-Webhook Source ──POST /webhook/:room──> relay-worker (Cloudflare)
+Webhook Source ──POST /webhook/:provider/:room──> relay-worker (Cloudflare)
                                                |
                                         RelayParty (DO)
                                                |

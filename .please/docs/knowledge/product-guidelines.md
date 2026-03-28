@@ -9,7 +9,7 @@
 
 ## API Design
 
-- Webhook endpoints follow the pattern `POST /webhook/:room`.
+- Webhook endpoints follow the pattern `POST /webhook/:provider/:room`.
 - Event envelopes are JSON objects containing metadata (source, event type, timestamp, room) — never the raw webhook body.
 - WebSocket messages use a consistent envelope schema across all providers.
 

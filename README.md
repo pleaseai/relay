@@ -32,7 +32,7 @@ bun run lint
 ## Architecture
 
 ```
-Webhook Source ──POST /webhook/:room──> relay-worker (Cloudflare)
+Webhook Source ──POST /webhook/:provider/:room──> relay-worker (Cloudflare)
                                                |
                                         RelayParty (DO)
                                                |
