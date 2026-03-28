@@ -1,5 +1,5 @@
 import type { Env } from '@pleaseai/relay-server'
-import { describe, expect, it, vi, beforeEach } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 // Mock partyserver before importing the module
 const mockFetch = vi.fn()
@@ -37,7 +37,7 @@ describe('relay-worker routing', () => {
     mockRoutePartykitRequest.mockResolvedValue(null)
   })
 
-  describe('GET /health', () => {
+  describe('gET /health', () => {
     it('returns 200 with status ok', async () => {
       const request = makeRequest('GET', '/health')
       const response = await handler.fetch(request, mockEnv)
@@ -47,7 +47,7 @@ describe('relay-worker routing', () => {
     })
   })
 
-  describe('POST /webhook/:provider/:room', () => {
+  describe('pOST /webhook/:provider/:room', () => {
     it('routes github/my-room with X-Relay-Provider header', async () => {
       mockFetch.mockResolvedValue(new Response('ok', { status: 200 }))
       const request = makeRequest('POST', '/webhook/github/my-room')
@@ -80,7 +80,7 @@ describe('relay-worker routing', () => {
     })
   })
 
-  describe('POST /webhook/:room (missing provider)', () => {
+  describe('pOST /webhook/:room (missing provider)', () => {
     it('returns 400 when only one segment after /webhook/', async () => {
       const request = makeRequest('POST', '/webhook/my-room')
 
@@ -93,7 +93,7 @@ describe('relay-worker routing', () => {
     })
   })
 
-  describe('POST /webhook/ (empty)', () => {
+  describe('pOST /webhook/ (empty)', () => {
     it('returns 400 when no segments after /webhook/', async () => {
       const request = makeRequest('POST', '/webhook/')
 

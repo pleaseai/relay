@@ -1,11 +1,11 @@
-import { githubProvider } from './github'
-import { asanaProvider } from './asana'
 import type { WebhookProvider } from './types'
+import { asanaProvider } from './asana'
+import { githubProvider } from './github'
 
+export { asanaProvider } from './asana'
+export { githubProvider } from './github'
 export type { WebhookProvider } from './types'
 export { computeHmacSha256, constantTimeCompare } from './types'
-export { githubProvider } from './github'
-export { asanaProvider } from './asana'
 
 const providers: Record<string, WebhookProvider> = {
   asana: asanaProvider,

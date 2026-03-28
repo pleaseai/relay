@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { computeHmacSha256 } from './types'
 import { asanaProvider } from './asana'
+import { computeHmacSha256 } from './types'
 
 function makeRequest(headers: Record<string, string> = {}): Request {
   return new Request('https://example.com/webhook', { headers })

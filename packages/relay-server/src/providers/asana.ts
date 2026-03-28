@@ -1,4 +1,5 @@
-import { computeHmacSha256, constantTimeCompare, WebhookProvider } from './types'
+import type { WebhookProvider } from './types'
+import { computeHmacSha256, constantTimeCompare } from './types'
 
 export const asanaProvider: WebhookProvider = {
   name: 'asana',

@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { resolveProvider } from './providers'
 import { computeHmacSha256 } from './providers/types'
 
@@ -26,8 +26,10 @@ function makeRequest(options: {
     'content-type': 'application/json',
     ...headers,
   }
-  if (provider) allHeaders['x-relay-provider'] = provider
-  if (hookSecret) allHeaders['x-hook-secret'] = hookSecret
+  if (provider)
+    allHeaders['x-relay-provider'] = provider
+  if (hookSecret)
+    allHeaders['x-hook-secret'] = hookSecret
 
   return new Request('https://example.com/webhook', {
     method,
@@ -52,8 +54,12 @@ async function onRequest(
     return Response.json({ error: { code: 'missing_provider', message: 'X-Relay-Provider header required' } }, { status: 400 })
 
   let provider
-  try { provider = resolveProvider(providerName) }
-  catch (e) { return Response.json({ error: { code: 'unknown_provider', message: (e as Error).message } }, { status: 400 }) }
+  try {
+    provider = resolveProvider(providerName)
+  }
+  catch (e) {
+    return Response.json({ error: { code: 'unknown_provider', message: (e as Error).message } }, { status: 400 })
+  }
 
   if (provider.isHandshake(request)) {
     const hookSecret = request.headers.get('x-hook-secret')
@@ -89,7 +95,7 @@ async function onRequest(
   return Response.json({ accepted: true, provider: providerName, event, action, connections: getConnectionCount() })
 }
 
-describe('RelayParty onRequest', () => {
+describe('relayParty onRequest', () => {
   let storageMock: { get: ReturnType<typeof vi.fn>, put: ReturnType<typeof vi.fn> }
   let broadcastMock: ReturnType<typeof vi.fn>
   let getConnectionCountMock: ReturnType<typeof vi.fn>

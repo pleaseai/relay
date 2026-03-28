@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { githubProvider } from './github'
 import { asanaProvider } from './asana'
+import { githubProvider } from './github'
 import { resolveProvider } from './index'
 
 describe('resolveProvider', () => {

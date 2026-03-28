@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { computeHmacSha256 } from './types'
 import { githubProvider } from './github'
+import { computeHmacSha256 } from './types'
 
 async function makeRequest(headers: Record<string, string> = {}): Promise<Request> {
   return new Request('https://example.com/webhook', { headers })

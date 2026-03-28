@@ -37,8 +37,12 @@ export class RelayParty extends Server<Env> {
       return Response.json({ error: { code: 'missing_provider', message: 'X-Relay-Provider header required' } }, { status: 400 })
 
     let provider
-    try { provider = resolveProvider(providerName) }
-    catch (e) { return Response.json({ error: { code: 'unknown_provider', message: (e as Error).message } }, { status: 400 }) }
+    try {
+      provider = resolveProvider(providerName)
+    }
+    catch (e) {
+      return Response.json({ error: { code: 'unknown_provider', message: (e as Error).message } }, { status: 400 })
+    }
 
     // Handshake
     if (provider.isHandshake(request)) {
