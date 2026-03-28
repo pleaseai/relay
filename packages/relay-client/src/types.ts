@@ -10,4 +10,5 @@ export interface RelayEnvelope {
   event_id?: string
   event?: string
   action?: string | null
+  provider?: string
 }

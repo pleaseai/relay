@@ -106,4 +106,11 @@ describe('RelayTransport', () => {
     messageHandlers[0]({ data: 'not json' })
     expect(triggerRefresh).toHaveBeenCalledTimes(0)
   })
+
+  it('calls triggerRefresh on message with provider field', () => {
+    const transport = new RelayTransport(config, triggerRefresh)
+    transport.connect()
+    messageHandlers[0]({ data: JSON.stringify({ type: 'webhook_event', event_id: 'prov-001', provider: 'github' }) })
+    expect(triggerRefresh).toHaveBeenCalledTimes(1)
+  })
 })

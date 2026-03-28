@@ -7,6 +7,7 @@
 | Track | Feature | Type | Issue | Started | Status |
 |-------|---------|------|-------|---------|--------|
 | [migrate-to-vitest-20260327](active/migrate-to-vitest-20260327/) | Migrate test runner to Vitest | feature | — | 2026-03-27 | draft |
+| [multi-provider-webhook-20260328](active/multi-provider-webhook-20260328/) | Multi-Provider Webhook Support | feature | — | 2026-03-28 | in_progress |
 
 ## Recently Completed
 

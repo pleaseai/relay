@@ -1,5 +1,6 @@
 import type { Connection, ConnectionContext } from 'partyserver'
 import { Server } from 'partyserver'
+import { resolveProvider } from './providers'
 
 export interface Env {
   [key: string]: unknown
@@ -28,53 +29,60 @@ export class RelayParty extends Server<Env> {
   }
 
   async onRequest(request: Request): Promise<Response> {
-    if (request.method !== 'POST') {
+    if (request.method !== 'POST')
       return new Response('Method Not Allowed', { status: 405 })
+
+    const providerName = request.headers.get('x-relay-provider')
+    if (!providerName)
+      return Response.json({ error: { code: 'missing_provider', message: 'X-Relay-Provider header required' } }, { status: 400 })
+
+    let provider
+    try {
+      provider = resolveProvider(providerName)
+    }
+    catch (e) {
+      return Response.json({ error: { code: 'unknown_provider', message: (e as Error).message } }, { status: 400 })
+    }
+
+    // Handshake
+    if (provider.isHandshake(request)) {
+      const hookSecret = request.headers.get('x-hook-secret')
+      if (!hookSecret)
+        return Response.json({ error: { code: 'missing_hook_secret', message: 'Handshake request missing X-Hook-Secret header' } }, { status: 400 })
+
+      await this.ctx.storage.put('webhook_secret', hookSecret)
+      return new Response('', { status: 200, headers: { 'x-hook-secret': hookSecret } })
     }
 
     const body = await request.text()
 
-    const secret = this.env.WEBHOOK_SECRET
-    if (secret) {
-      const signature = request.headers.get('x-hub-signature-256')
-      if (!signature) {
-        return Response.json(
-          { error: { code: 'missing_signature', message: 'X-Hub-Signature-256 header required' } },
-          { status: 401 },
-        )
-      }
+    // Verification
+    const secret = await this.ctx.storage.get<string>('webhook_secret') ?? this.env.WEBHOOK_SECRET
+    if (!secret)
+      return Response.json({ error: { code: 'no_secret', message: 'Webhook secret not configured' } }, { status: 500 })
 
-      const valid = await this.verifySignature(body, signature, secret)
-      if (!valid) {
-        return Response.json(
-          { error: { code: 'invalid_signature', message: 'Signature verification failed' } },
-          { status: 401 },
-        )
-      }
-    }
+    const valid = await provider.verify(body, request, secret)
+    if (!valid)
+      return Response.json({ error: { code: 'invalid_signature', message: 'Signature verification failed' } }, { status: 401 })
 
-    const event = request.headers.get('x-github-event') ?? 'unknown'
-    let action: string | null = null
-    try {
-      const parsed = JSON.parse(body) as Record<string, unknown>
-      if (typeof parsed?.action === 'string')
-        action = parsed.action
-    }
-    catch (e) {
-      console.error('Failed to parse webhook body:', e)
-    }
+    // Metadata
+    const { event, action } = provider.extractMetadata(body, request)
+
+    // Heartbeat events (e.g., Asana empty events array) are acknowledged without broadcast
+    if (event === 'heartbeat')
+      return Response.json({ accepted: true, provider: providerName, event, action, connections: this.getConnectionCount() })
 
     const envelope = JSON.stringify({
       type: 'webhook_event',
       event_id: crypto.randomUUID(),
+      provider: providerName,
       event,
       action,
       received_at: new Date().toISOString(),
     })
 
     this.broadcast(envelope)
-
-    return Response.json({ accepted: true, event, action, connections: this.getConnectionCount() })
+    return Response.json({ accepted: true, provider: providerName, event, action, connections: this.getConnectionCount() })
   }
 
   private getConnectionCount(): number {
@@ -82,29 +90,5 @@ export class RelayParty extends Server<Env> {
     for (const _ of this.getConnections())
       count++
     return count
-  }
-
-  private async verifySignature(payload: string, signature: string, secret: string): Promise<boolean> {
-    const encoder = new TextEncoder()
-    const key = await crypto.subtle.importKey(
-      'raw',
-      encoder.encode(secret),
-      { name: 'HMAC', hash: 'SHA-256' },
-      false,
-      ['sign'],
-    )
-
-    const sig = await crypto.subtle.sign('HMAC', key, encoder.encode(payload))
-    const expected = `sha256=${Array.from(new Uint8Array(sig), b => b.toString(16).padStart(2, '0')).join('')}`
-
-    if (signature.length !== expected.length)
-      return false
-
-    // Constant-time comparison
-    let mismatch = 0
-    for (let i = 0; i < expected.length; i++)
-      mismatch |= expected.charCodeAt(i) ^ signature.charCodeAt(i)
-
-    return mismatch === 0
   }
 }
