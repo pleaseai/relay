@@ -1,0 +1,1 @@
+- [Project: doc structure patterns](project_doc_structure.md) — Naming conventions, index files, and recurring staleness patterns found in this repo
