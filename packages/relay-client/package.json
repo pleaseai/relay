@@ -30,6 +30,9 @@
     "dist",
     "src"
   ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "build": "tsdown",
     "check": "tsc --noEmit",
@@ -40,9 +43,6 @@
   "dependencies": {
     "consola": "^3.4.2",
     "partysocket": "^1.1.16"
-  },
-  "engines": {
-    "node": ">=18.0.0"
   },
   "devDependencies": {
     "@arethetypeswrong/core": "^0.18.1",
