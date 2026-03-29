@@ -18,17 +18,6 @@
         "typescript": "^5.7.0",
       },
     },
-    "apps/relay-e2e": {
-      "name": "@pleaseai/relay-e2e",
-      "version": "0.1.0",
-      "devDependencies": {
-        "@cloudflare/vitest-pool-workers": "^0.8.0",
-        "@cloudflare/workers-types": "^4.20250313.0",
-        "typescript": "^5.7.0",
-        "vitest": "^3.1.0",
-        "wrangler": "^4.14.0",
-      },
-    },
     "apps/relay-worker": {
       "name": "@pleaseai/relay-worker",
       "version": "0.1.0",
@@ -56,6 +45,17 @@
         "publint": "^0.3.12",
         "tsdown": "^0.21.7",
         "typescript": "^5.7.0",
+      },
+    },
+    "packages/relay-e2e": {
+      "name": "@pleaseai/relay-e2e",
+      "version": "0.1.0",
+      "devDependencies": {
+        "@cloudflare/vitest-pool-workers": "^0.8.0",
+        "@cloudflare/workers-types": "^4.20250313.0",
+        "typescript": "^5.7.0",
+        "vitest": "^3.1.0",
+        "wrangler": "^4.14.0",
       },
     },
     "packages/relay-server": {
@@ -319,7 +319,7 @@
 
     "@pleaseai/relay-client": ["@pleaseai/relay-client@workspace:packages/relay-client"],
 
-    "@pleaseai/relay-e2e": ["@pleaseai/relay-e2e@workspace:apps/relay-e2e"],
+    "@pleaseai/relay-e2e": ["@pleaseai/relay-e2e@workspace:packages/relay-e2e"],
 
     "@pleaseai/relay-server": ["@pleaseai/relay-server@workspace:packages/relay-server"],
 
