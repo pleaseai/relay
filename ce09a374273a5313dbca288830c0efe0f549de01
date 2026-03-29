@@ -1,0 +1,23 @@
+packages/relay-e2e/vitest.config.ts
+  f3d471bc6efb2824 11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.22",
+  "base_commit_sha": "ce09a374273a5313dbca288830c0efe0f549de01",
+  "prompts": {
+    "f3d471bc6efb2824": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "87049e71-6880-4c54-9dea-f8d0865318ab",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Minsu Lee <amond@amond.net>",
+      "messages": [],
+      "total_additions": 1,
+      "total_deletions": 1,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    }
+  }
+}
