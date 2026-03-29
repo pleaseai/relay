@@ -8,7 +8,7 @@ export default defineWorkersConfig({
         singleWorker: true,
         isolatedStorage: false,
         wrangler: {
-          configPath: '../relay-worker/wrangler.json',
+          configPath: '../../apps/relay-worker/wrangler.json',
         },
         miniflare: {
           bindings: {
