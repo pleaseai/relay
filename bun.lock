@@ -65,7 +65,10 @@
         "partyserver": "^0.3.3",
       },
       "devDependencies": {
+        "@arethetypeswrong/core": "^0.18.1",
         "@cloudflare/workers-types": "^4.20250313.0",
+        "publint": "^0.3.12",
+        "tsdown": "^0.21.7",
         "typescript": "^5.7.0",
         "vitest": "^4.1.2",
       },
