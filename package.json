@@ -10,6 +10,7 @@
     "lint:fix": "turbo run lint:fix",
     "check": "turbo run check",
     "test": "turbo run test",
+    "test:e2e": "turbo run test:e2e",
     "prepare": "husky"
   },
   "devDependencies": {
