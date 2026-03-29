@@ -1,7 +1,7 @@
 {
   "name": "@pleaseai/relay-client",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "WebSocket relay client for webhook events",
   "license": "FSL-1.1-MIT",
   "repository": {

@@ -1,7 +1,7 @@
 {
   "name": "@pleaseai/relay-server",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "PartyServer relay server for webhook events",
   "license": "FSL-1.1-MIT",
   "repository": {
