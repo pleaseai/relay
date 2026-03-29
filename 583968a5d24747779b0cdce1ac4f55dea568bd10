@@ -1,0 +1,23 @@
+packages/relay-client/package.json
+  f3d471bc6efb2824 33-35
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.22",
+  "base_commit_sha": "583968a5d24747779b0cdce1ac4f55dea568bd10",
+  "prompts": {
+    "f3d471bc6efb2824": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "87049e71-6880-4c54-9dea-f8d0865318ab",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Minsu Lee <amond@amond.net>",
+      "messages": [],
+      "total_additions": 3,
+      "total_deletions": 3,
+      "accepted_lines": 3,
+      "overriden_lines": 0
+    }
+  }
+}
