@@ -67,8 +67,6 @@ jobs:
       - name: Publish tarball with npm (supports --provenance)
         run: npm publish pleaseai-relay-client-*.tgz --provenance --access public
         working-directory: packages/relay-client
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   publish-relay-server:
     needs: release-please
@@ -105,5 +103,3 @@ jobs:
       - name: Publish tarball with npm (supports --provenance)
         run: npm publish pleaseai-relay-server-*.tgz --provenance --access public
         working-directory: packages/relay-server
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
