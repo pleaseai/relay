@@ -1,0 +1,25 @@
+packages/relay-server/tsdown.config.ts
+  f3d471bc6efb2824 1-19
+packages/relay-server/package.json
+  f3d471bc6efb2824 13-18,20-21,29,38,40-41
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.22",
+  "base_commit_sha": "4bcd32e686c55b8dc0f3dfc0de9eaaffaf8e24e2",
+  "prompts": {
+    "f3d471bc6efb2824": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "87049e71-6880-4c54-9dea-f8d0865318ab",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Minsu Lee <amond@amond.net>",
+      "messages": [],
+      "total_additions": 31,
+      "total_deletions": 3,
+      "accepted_lines": 31,
+      "overriden_lines": 0
+    }
+  }
+}
